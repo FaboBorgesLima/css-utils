@@ -1,0 +1,46 @@
+a {
+  text-decoration: none;
+}
+header {
+  padding: 1rem;
+  background-color: var(--blue-5);
+  width: 100%;
+}
+header > h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-family: "Audiowide", sans-serif;
+  color: var(--blue-0);
+}
+nav {
+  background-color: var(--blue-4);
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+nav > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  nav > div {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  nav {
+    padding: 0rem;
+  }
+}
+nav > div > a {
+  color: var(--blue-0);
+  transition: 200ms;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  &:hover {
+    color: var(--blue-1);
+    background-color: var(--blue-3);
+    font-weight: bolder;
+    text-shadow: 0 0 10px var(--blue-5);
+  }
+}
