@@ -17,7 +17,7 @@ describe('AppComponent', () => {
   it(`should have the 'css-utils' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('css-utils');
+    expect(app.title).toEqual('web-dev-utils');
   });
 
   it('should render title', () => {

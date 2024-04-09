@@ -49,8 +49,6 @@ export class SmoothLinearGradientCalculatorService {
       this.endColor.getA()
     );
 
-    console.log(a);
-
     for (let i = 0; i < r.length; i++) {
       colors.push(new Color(r[i], g[i], b[i], a[i]));
     }
@@ -82,8 +80,6 @@ export class SmoothLinearGradientCalculatorService {
     linearGradient += `${colors[colors.length - 1].toRGBA()} ${
       points[colors.length - 1] * 100
     }% )`;
-
-    console.log(linearGradient);
 
     return linearGradient;
   }
