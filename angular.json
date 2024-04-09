@@ -13,12 +13,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/web-dev-utils",
+            "outputPath": "dist",
             "index": "src/index.html",
+            "baseHref": "/web-dev-utils/",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
+            
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",

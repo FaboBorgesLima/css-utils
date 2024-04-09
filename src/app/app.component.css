@@ -44,3 +44,19 @@ nav > div > a {
     text-shadow: 0 0 10px var(--blue-5);
   }
 }
+footer {
+  background-color: var(--blue-5);
+  color: var(--blue-0);
+  padding: 1rem;
+  & span {
+    text-align: center;
+    width: 100%;
+    display: block;
+  }
+  & a {
+    color: var(--blue-2);
+    &:hover {
+      color: var(--blue-3);
+    }
+  }
+}
