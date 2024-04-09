@@ -1,0 +1,86 @@
+export class Color {
+  private r = 0;
+  private g = 0;
+  private b = 0;
+  private a = 1;
+
+  constructor(r: number, g: number, b: number, a: number) {
+    this.setR(r);
+    this.setG(g);
+    this.setB(b);
+    this.setA(a);
+  }
+
+  setR(r: number) {
+    this.r = this.between0and255(r);
+  }
+
+  setG(g: number) {
+    this.g = this.between0and255(g);
+  }
+  setB(b: number) {
+    this.b = this.between0and255(b);
+  }
+  setA(a: number) {
+    this.a = Math.min(Math.max(1, a), 0);
+  }
+
+  private between0and255(n: number): number {
+    return Math.min(Math.max(Math.trunc(n), 0), 255);
+  }
+
+  fromHex(color: string): boolean {
+    const clearColor = color
+      .toLocaleUpperCase()
+      .replaceAll(/[^ABCDEF0-9]/g, '');
+
+    if (clearColor.length < 2) return false;
+    console.log(this);
+
+    switch (clearColor.length) {
+      case 3:
+        this.r = parseInt(clearColor[0] + clearColor[0], 16);
+        this.g = parseInt(clearColor[1] + clearColor[1], 16);
+        this.b = parseInt(clearColor[2] + clearColor[2], 16);
+        return true;
+      case 6:
+        this.r = parseInt(clearColor[0] + clearColor[1], 16);
+        this.g = parseInt(clearColor[2] + clearColor[3], 16);
+        this.b = parseInt(clearColor[4] + clearColor[5], 16);
+        return true;
+      case 4:
+        this.r = parseInt(clearColor[0] + clearColor[0], 16);
+        this.g = parseInt(clearColor[1] + clearColor[1], 16);
+        this.b = parseInt(clearColor[2] + clearColor[2], 16);
+        this.a = parseInt(clearColor[3] + clearColor[3], 16) / 255;
+        return true;
+      case 8:
+        this.r = parseInt(clearColor[0] + clearColor[1], 16);
+        this.g = parseInt(clearColor[2] + clearColor[3], 16);
+        this.b = parseInt(clearColor[4] + clearColor[5], 16);
+        this.a = parseInt(clearColor[6] + clearColor[7], 16) / 255;
+        return true;
+    }
+    return false;
+  }
+  getR(): number {
+    return this.r;
+  }
+  getG(): number {
+    return this.g;
+  }
+  getB(): number {
+    return this.b;
+  }
+  getA(): number {
+    return this.a;
+  }
+  toHex(): string {
+    return `${this.r.toString(16)}${this.g.toString(16)}${this.b.toString(
+      16
+    )}${(this.a * 255).toString(16)}`;
+  }
+  toRGBA(): string {
+    return `rgba(${this.r},${this.g},${this.b},${this.a})`;
+  }
+}

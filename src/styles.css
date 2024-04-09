@@ -21,6 +21,11 @@ html {
     color: var(--blue-0);
   }
 }
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
 h1 {
   margin: 0;
   font-size: 2rem;
