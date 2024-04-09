@@ -6,8 +6,8 @@ import { Color } from '../color/color';
 })
 export class SmoothLinearGradientCalculatorService {
   private steps: number = 2;
-  public startColor: Color = new Color(0, 0, 0, 1);
-  public endColor: Color = new Color(0, 0, 0, 1);
+  public startColor: Color = new Color(0, 0, 0);
+  public endColor: Color = new Color(0, 0, 0);
 
   setSteps(steps: number): void {
     this.steps = steps;
@@ -15,7 +15,7 @@ export class SmoothLinearGradientCalculatorService {
 
   calculateSingleColorN(start: number, end: number): number[] {
     const colors: number[] = [];
-    const baseMiddle = Math.sqrt((end - start) / 2);
+    const baseMiddle = Math.sqrt(Math.abs(end - start) / 2);
 
     const stepByColor = baseMiddle / this.steps;
 
@@ -49,6 +49,8 @@ export class SmoothLinearGradientCalculatorService {
       this.endColor.getA()
     );
 
+    console.log(a);
+
     for (let i = 0; i < r.length; i++) {
       colors.push(new Color(r[i], g[i], b[i], a[i]));
     }
@@ -73,11 +75,15 @@ export class SmoothLinearGradientCalculatorService {
 
     let linearGradient = `linear-gradient(${Math.trunc(deg)}deg, `;
 
-    for (let i = 0; i < colors.length; i++) {
-      linearGradient += `${colors[i].toRGBA()} ${points[i]}%,`;
+    for (let i = 0; i < colors.length - 1; i++) {
+      linearGradient += `${colors[i].toRGBA()} ${points[i] * 100}%,`;
     }
 
-    linearGradient += ')';
+    linearGradient += `${colors[colors.length - 1].toRGBA()} ${
+      points[colors.length - 1] * 100
+    }% )`;
+
+    console.log(linearGradient);
 
     return linearGradient;
   }

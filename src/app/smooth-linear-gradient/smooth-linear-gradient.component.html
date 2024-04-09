@@ -1,5 +1,4 @@
 <main class="container mx-auto">
-  <input type="checkbox" />
   <div class="grid">
     <div class="input-group">
       <label>Start Color</label>
@@ -15,7 +14,9 @@
           name="startColor"
           placeholder="start color"
         />
-        <button><ng-icon name="ionColorPalette"></ng-icon></button>
+        <button (click)="copyToClipBoard(startHex.value)" title="copy">
+          <ng-icon name="ionColorPalette"></ng-icon>
+        </button>
       </div>
     </div>
 
@@ -33,13 +34,31 @@
           name="endColor"
           placeholder="end color"
         />
-        <ng-icon name="ionColorPalette"></ng-icon>
+        <button (click)="copyToClipBoard(endHex.value)" title="copy">
+          <ng-icon name="ionColorPalette"></ng-icon>
+        </button>
       </div>
     </div>
   </div>
   <div class="color-display">
     <div [style.background]="startHex.value"></div>
-    <div [ngStyle]="{ background: updateLinearGradient() }"></div>
+    <div
+      [ngStyle]="{
+        background: linearGradient
+      }"
+      class="col-span-2"
+    ></div>
     <div [style.background]="endHex.value"></div>
+  </div>
+  <div class="css-code">
+    <header>
+      <h2>css code</h2>
+      <button title="copy" (click)="copyToClipBoard(linearGradient)">
+        <ng-icon name="ionCopy"></ng-icon>
+      </button>
+    </header>
+    <div>
+      <code>{{ linearGradient }}</code>
+    </div>
   </div>
 </main>

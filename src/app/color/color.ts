@@ -2,9 +2,16 @@ export class Color {
   private r = 0;
   private g = 0;
   private b = 0;
-  private a = 1;
+  private a = 255;
 
-  constructor(r: number, g: number, b: number, a: number) {
+  /**
+   *
+   * @param r
+   * @param g
+   * @param b
+   * @param a
+   */
+  constructor(r: number, g: number, b: number, a: number = 255) {
     this.setR(r);
     this.setG(g);
     this.setB(b);
@@ -22,7 +29,7 @@ export class Color {
     this.b = this.between0and255(b);
   }
   setA(a: number) {
-    this.a = Math.min(Math.max(1, a), 0);
+    this.a = this.between0and255(a);
   }
 
   private between0and255(n: number): number {
@@ -35,30 +42,31 @@ export class Color {
       .replaceAll(/[^ABCDEF0-9]/g, '');
 
     if (clearColor.length < 2) return false;
-    console.log(this);
 
     switch (clearColor.length) {
       case 3:
         this.r = parseInt(clearColor[0] + clearColor[0], 16);
         this.g = parseInt(clearColor[1] + clearColor[1], 16);
         this.b = parseInt(clearColor[2] + clearColor[2], 16);
+        this.a = 255;
         return true;
       case 6:
         this.r = parseInt(clearColor[0] + clearColor[1], 16);
         this.g = parseInt(clearColor[2] + clearColor[3], 16);
         this.b = parseInt(clearColor[4] + clearColor[5], 16);
+        this.a = 255;
         return true;
       case 4:
         this.r = parseInt(clearColor[0] + clearColor[0], 16);
         this.g = parseInt(clearColor[1] + clearColor[1], 16);
         this.b = parseInt(clearColor[2] + clearColor[2], 16);
-        this.a = parseInt(clearColor[3] + clearColor[3], 16) / 255;
+        this.a = parseInt(clearColor[3] + clearColor[3], 16);
         return true;
       case 8:
         this.r = parseInt(clearColor[0] + clearColor[1], 16);
         this.g = parseInt(clearColor[2] + clearColor[3], 16);
         this.b = parseInt(clearColor[4] + clearColor[5], 16);
-        this.a = parseInt(clearColor[6] + clearColor[7], 16) / 255;
+        this.a = parseInt(clearColor[6] + clearColor[7], 16);
         return true;
     }
     return false;
@@ -78,9 +86,9 @@ export class Color {
   toHex(): string {
     return `${this.r.toString(16)}${this.g.toString(16)}${this.b.toString(
       16
-    )}${(this.a * 255).toString(16)}`;
+    )}${this.a.toString(16)}`;
   }
   toRGBA(): string {
-    return `rgba(${this.r},${this.g},${this.b},${this.a})`;
+    return `rgba(${this.r},${this.g},${this.b},${this.a / 255})`;
   }
 }
