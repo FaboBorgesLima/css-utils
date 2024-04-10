@@ -32,8 +32,8 @@ jobs:
 
       - name: Make deploy file and repo
         run: |
-          mkdir -p deploy
-          rm -r deploy/*
+          mkdirf -p ./deploy
+          rm -r ./deploy/*
           cd deploy
           git init 
           git remote add origin git@github.com:FaboBorgesLima/web-dev-utils.git
