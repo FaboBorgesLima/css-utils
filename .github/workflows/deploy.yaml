@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+
+permissions:
+  contents: write
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -24,5 +27,15 @@ jobs:
       - name: Copy deploy files
         run: cp ./dist/3rdpartylicenses.txt ./dist/browser
 
-      - name: Run ls -a
-        run: ls -a
+      - name: Remove .git
+        run: rm -r .git
+
+      - name: Init git repo on browser
+        run: |
+          cd ./dist/browser
+          git init 
+          git remote add origin git@github.com:FaboBorgesLima/web-dev-utils.git
+          git checkout -b origin/gh-pages
+          git add .
+          git commit -m "deploy-to-gh-pages"
+          git push
