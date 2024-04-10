@@ -52,7 +52,7 @@ jobs:
           cd ..
 
       - name: Copy deploy
-        run: cp ./dist/browser ./deploy
+        run: cp ./dist/browser/* ./deploy/
 
       - name: Init git repo on browser
         run: |
