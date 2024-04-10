@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Use Checkout
@@ -20,11 +20,9 @@ jobs:
 
       - name: Run npm run build
         run: npm run build
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist/browser
-        publish_branch: origin/gg-pages
+
+      - name: Copy deploy files
+        run: cp ./dist/3rdpartylicenses.txt ./dist/browser
+
+      - name: Run ls -a
+        run: ls -a
