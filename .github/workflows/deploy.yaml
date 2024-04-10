@@ -35,9 +35,6 @@ jobs:
 
       - name: Config git
         run: |
-          git config --global user.name "FaboBorgesLima"
-          git config --global user.email "fabo.borges.lima@gmail.com"
-          git config --global github.token ${{ secrets.GITHUB_TOKEN }}
 
       - name: Make deploy file and repo
         run: |
@@ -47,8 +44,12 @@ jobs:
           cd deploy
           ls -la
           git checkout origin/origin/gh-pages 
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git config github.token ${{ secrets.GITHUB_TOKEN }}
           git rm -rf .
           git clean -fxd
+          ls -la
           cd ..
 
       - name: Copy deploy
