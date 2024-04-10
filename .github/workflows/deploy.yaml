@@ -59,4 +59,4 @@ jobs:
           cd deploy
           git add .
           git commit -m "deploy-to-gh-pages"
-          git push
+          git push origin HEAD:origin/origin/gh-pages
