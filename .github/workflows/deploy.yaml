@@ -10,53 +10,44 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Use Checkout
-        uses: actions/checkout@v4
-
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
 
-      - name: Run npm install
-        run: npm install
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          path: main
 
-      - name: Run npm run build
-        run: npm run build
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
 
-      - name: Remove .git
-        run: rm -r .git
-
-      - name: Copy files to browser
-        run: cp ./dist/3rdpartylicenses.txt ./dist/browser
-
-      - name: run pwd
-        run: pwd
-
-      - name: Config git
+      - name: Build main
         run: |
-
-      - name: Make deploy file and repo
-        run: |
-          mkdir -p ./deploy
-          rm -rf ./deploy/*
-          git clone https://github.com/FaboBorgesLima/web-dev-utils.git deploy
-          cd deploy
-          ls -la
-          git checkout origin/origin/gh-pages 
-          git config --global user.name "FaboBorgesLima"
-          git config --global user.email "fabo.borges.lima@gmail.com"
-          git rm -rf .
-          git clean -fxd
-          ls -la
+          cd main
+          npm install
+          npm run build
           cd ..
 
-      - name: Copy deploy
-        run: cp ./dist/browser/* ./deploy/
-
-      - name: Init git repo on browser
+      - name: Clear gh-pages
         run: |
-          cd deploy
+          cd gh-pages
+          git rm -r *
+          cd ..
+
+      - name: Copy files to gh-pages
+        run: |
+          cp main/dist/3rdpartylicenses.txt main/dist/browser
+          cp main/dist/browser/* gh-pages/
+
+      - name: Commit and push from gh-pages
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add .
-          git commit -m "deploy-to-gh-pages"
-          git push origin HEAD:origin/origin/gh-pages
+          git commit -m "bot"
+          git push
