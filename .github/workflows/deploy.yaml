@@ -30,20 +30,21 @@ jobs:
       - name: Copy files to browser
         run: cp ./dist/3rdpartylicenses.txt ./dist/browser
 
+      - name: run pwd
+        run: pwd
+
       - name: Make deploy file and repo
         run: |
           mkdir -p ./deploy
           rm -rf ./deploy/*
-          cd deploy
-          git clone https://github.com/FaboBorgesLima/web-dev-utils.git
-          git config user.name "GitHub Action"
-          git config user.email "action@github.com"
-          git config github.token ${{ secrets.GITHUB_TOKEN }}
-          git pull 
-          git checkout origin/gh-pages
-          git rm -rf .
-          git clean -fxd
-          cd ..
+          git -C ./deploy clone https://github.com/FaboBorgesLima/web-dev-utils.git
+          git -C ./deploy config user.name "GitHub Action"
+          git -C ./deploy config user.email "action@github.com"
+          git -C ./deploy config github.token ${{ secrets.GITHUB_TOKEN }}
+          git -C ./deploy pull 
+          git -C ./deploy checkout origin/gh-pages
+          git -C ./deploy rm -rf .
+          git -C ./deploy clean -fxd
 
       - name: Copy deploy
         run: cp ./dist/browser ./deploy
