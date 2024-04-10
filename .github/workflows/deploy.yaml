@@ -35,6 +35,8 @@ jobs:
           cd ./dist/browser
           git init 
           git remote add origin git@github.com:FaboBorgesLima/web-dev-utils.git
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
           git checkout -b origin/gh-pages
           git add .
           git commit -m "deploy-to-gh-pages"
