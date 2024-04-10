@@ -37,12 +37,11 @@ jobs:
         run: |
           mkdir -p ./deploy
           rm -rf ./deploy/*
+          git --global config user.name "GitHub Action"
+          git --global config user.email "action@github.com"
+          git --global config github.token ${{ secrets.GITHUB_TOKEN }}
           git -C ./deploy clone https://github.com/FaboBorgesLima/web-dev-utils.git
-          git -C ./deploy config user.name "GitHub Action"
-          git -C ./deploy config user.email "action@github.com"
-          git -C ./deploy config github.token ${{ secrets.GITHUB_TOKEN }}
-          git -C ./deploy pull 
-          git -C ./deploy checkout origin/gh-pages
+          git -C ./deploy checkout origin/origin/gh-pages
           git -C ./deploy rm -rf .
           git -C ./deploy clean -fxd
 
