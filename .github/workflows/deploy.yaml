@@ -24,20 +24,33 @@ jobs:
       - name: Run npm run build
         run: npm run build
 
-      - name: Copy deploy files
-        run: cp ./dist/3rdpartylicenses.txt ./dist/browser
-
       - name: Remove .git
         run: rm -r .git
 
-      - name: Init git repo on browser
+      - name: Copy files to browser
+        run: cp ./dist/3rdpartylicenses.txt ./dist/browser
+
+      - name: Make deploy file and repo
         run: |
-          cd ./dist/browser
+          mkdir -p deploy
+          rm -r deploy/*
+          cd deploy
           git init 
           git remote add origin git@github.com:FaboBorgesLima/web-dev-utils.git
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          git checkout -b origin/gh-pages
+          git pull 
+          git checkout origin/gh-pages
+          git rm -rf .
+          git clean -fxd
+          cd ..
+
+      - name: Copy deploy
+        run: cp ./dist/browser ./deploy
+
+      - name: Init git repo on browser
+        run: |
+          cd deploy
           git add .
           git commit -m "deploy-to-gh-pages"
           git push
