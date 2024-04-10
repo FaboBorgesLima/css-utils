@@ -39,6 +39,7 @@ jobs:
           git remote add origin git@github.com:FaboBorgesLima/web-dev-utils.git
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
+          git config github.token ${{ secrets.GITHUB_TOKEN }}
           git pull 
           git checkout origin/gh-pages
           git rm -rf .
