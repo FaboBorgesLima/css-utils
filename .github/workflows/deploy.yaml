@@ -43,10 +43,13 @@ jobs:
         run: |
           mkdir -p ./deploy
           rm -rf ./deploy/*
-          git -C ./deploy clone https://github.com/FaboBorgesLima/web-dev-utils.git
-          git -C ./deploy checkout origin/origin/gh-pages
-          git -C ./deploy rm -rf .
-          git -C ./deploy clean -fxd
+          git clone https://github.com/FaboBorgesLima/web-dev-utils.git deploy
+          cd deploy
+          ls -la
+          git checkout origin/origin/gh-pages 
+          git rm -rf .
+          git clean -fxd
+          cd ..
 
       - name: Copy deploy
         run: cp ./dist/browser ./deploy
