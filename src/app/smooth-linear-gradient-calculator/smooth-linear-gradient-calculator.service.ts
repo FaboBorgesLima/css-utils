@@ -20,16 +20,23 @@ export class SmoothLinearGradientCalculatorService {
 
   private calculateSingleColorN(start: number, end: number): number[] {
     const colors: number[] = [];
-    const baseMiddle = Math.sqrt(Math.abs(end - start) / 2);
 
-    const stepByColor = baseMiddle / this.steps;
+    const middle = (start + end) / 2;
+    const sqrtMiddle = Math.sqrt(middle);
+    const halfSteps = Math.trunc(this.steps / 2) + 1;
+    const isOddSteps = Boolean(this.steps % 2);
 
-    for (let i = 0; i < this.steps; i++) {
-      colors.push(Math.pow(i * stepByColor, 2) + start);
+    for (let i = 1; i <= halfSteps; i++) {
+      colors.push();
     }
-    for (let i = this.steps; i >= 0; i--) {
-      colors.push(end - Math.pow(i * stepByColor, 2));
+
+    if (isOddSteps) colors.push(middle);
+
+    for (let i = 1; i <= halfSteps; i++) {
+      colors.push();
     }
+
+    console.log('start: ', start, ', end:', end, ', steps', colors);
 
     return colors;
   }
@@ -64,8 +71,8 @@ export class SmoothLinearGradientCalculatorService {
   calculatePoints(): number[] {
     const points: number[] = [];
 
-    for (let i = 0; i < this.steps * 2; i++) {
-      points.push(i * (1 / (this.steps * 2)));
+    for (let i = 0; i < this.steps; i++) {
+      points.push(i * (1 / this.steps));
     }
     points.push(1);
 
