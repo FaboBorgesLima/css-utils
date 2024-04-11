@@ -61,6 +61,11 @@
     background-color: var(--blue-6);
   }
 }
+.checkboc-group {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -71,10 +76,12 @@
 }
 .color-display {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  aspect-ratio: 10/1;
+  grid-template-columns: repeat(3, 1fr);
+  aspect-ratio: 8/1;
   background-image: linear-gradient();
   border-radius: 1rem;
+  background-image: url("../../assets/black_white.png");
+  background-repeat: repeat;
 
   & > div:last-child {
     border-top-right-radius: 1rem;

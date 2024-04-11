@@ -27,12 +27,13 @@ export class SmoothLinearGradientComponent {
   public startColor: Color = new Color(255, 255, 255);
   public endColor: Color = new Color(0, 0, 0);
   public linearGradient: string = '';
+  public smoothLinearGradient: boolean = false;
 
   constructor(public calculator: SmoothLinearGradientCalculatorService) {
-    calculator.setSteps(4);
+    calculator.setSteps(2);
     calculator.endColor = this.endColor;
     calculator.startColor = this.startColor;
-    this.linearGradient = this.calculator.toLinearGradient(90);
+    this.linearGradient = this.updateLinearGradient();
   }
 
   public copyToClipBoard(str: string | null = ''): void {
@@ -51,8 +52,14 @@ export class SmoothLinearGradientComponent {
   }
 
   public updateLinearGradient(): string {
-    const linear = this.calculator.toLinearGradient(90);
+    let linear = this.calculator.toLinearGradient();
+
+    if (this.smoothLinearGradient)
+      linear = this.calculator.toSmoothLinearGradient();
+
     this.linearGradient = linear;
+
+    console.log(linear);
     return linear;
   }
 }

@@ -8,9 +8,14 @@ export class SmoothLinearGradientCalculatorService {
   private steps: number = 2;
   public startColor: Color = new Color(0, 0, 0);
   public endColor: Color = new Color(0, 0, 0);
+  private deg: number = 90;
 
   setSteps(steps: number): void {
     this.steps = steps;
+  }
+
+  setDeg(deg: number): void {
+    this.deg = Math.trunc(deg);
   }
 
   private calculateSingleColorN(start: number, end: number): number[] {
@@ -66,12 +71,22 @@ export class SmoothLinearGradientCalculatorService {
 
     return points;
   }
+  toLinearGradient(rgba: boolean = true): string {
+    if (rgba)
+      return `linear-gradient(${
+        this.deg
+      }deg, ${this.startColor.toRGBA()} 0%, ${this.endColor.toRGBA()} 100%)`;
 
-  toLinearGradient(deg: number, rgba: boolean = true): string {
+    return `linear-gradient(${
+      this.deg
+    }deg, ${this.startColor.toHex()} 0%, ${this.endColor.toHex()} 100%)`;
+  }
+
+  toSmoothLinearGradient(rgba: boolean = true): string {
     const colors = this.calculateColors();
     const points = this.calculatePoints();
 
-    let linearGradient = `linear-gradient(${Math.trunc(deg)}deg, `;
+    let linearGradient = `linear-gradient(${this.deg}deg, `;
 
     for (let i = 0; i < colors.length - 1; i++) {
       linearGradient += `${rgba ? colors[i].toRGBA() : colors[i].toHex()} ${

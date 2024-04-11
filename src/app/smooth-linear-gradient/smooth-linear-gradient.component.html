@@ -1,4 +1,15 @@
 <main class="container mx-auto">
+  <div class="checkbox-group">
+    <input
+      type="checkbox"
+      [checked]="smoothLinearGradient"
+      (change)="
+        smoothLinearGradient = !smoothLinearGradient; updateLinearGradient()
+      "
+    />
+    <span>smooth linear gradient</span>
+  </div>
+
   <div class="grid">
     <div class="input-group">
       <label>Start Color</label>
@@ -46,7 +57,6 @@
       [ngStyle]="{
         background: linearGradient
       }"
-      class="col-span-2"
     ></div>
     <div [style.background]="endHex.value"></div>
   </div>
