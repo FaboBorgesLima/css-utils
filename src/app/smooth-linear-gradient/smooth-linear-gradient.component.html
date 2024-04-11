@@ -50,15 +50,5 @@
     ></div>
     <div [style.background]="endHex.value"></div>
   </div>
-  <div class="css-code">
-    <header>
-      <h2>css code</h2>
-      <button title="copy" (click)="copyToClipBoard(linearGradient)">
-        <ng-icon name="ionCopy"></ng-icon>
-      </button>
-    </header>
-    <div>
-      <code>{{ linearGradient }}</code>
-    </div>
-  </div>
+  <app-code-card [code]="linearGradient" header="css code"></app-code-card>
 </main>

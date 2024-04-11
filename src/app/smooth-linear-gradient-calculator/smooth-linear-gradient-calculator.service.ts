@@ -13,7 +13,7 @@ export class SmoothLinearGradientCalculatorService {
     this.steps = steps;
   }
 
-  calculateSingleColorN(start: number, end: number): number[] {
+  private calculateSingleColorN(start: number, end: number): number[] {
     const colors: number[] = [];
     const baseMiddle = Math.sqrt(Math.abs(end - start) / 2);
 
@@ -67,14 +67,16 @@ export class SmoothLinearGradientCalculatorService {
     return points;
   }
 
-  toLinearGradient(deg: number): string {
+  toLinearGradient(deg: number, rgba: boolean = true): string {
     const colors = this.calculateColors();
     const points = this.calculatePoints();
 
     let linearGradient = `linear-gradient(${Math.trunc(deg)}deg, `;
 
     for (let i = 0; i < colors.length - 1; i++) {
-      linearGradient += `${colors[i].toRGBA()} ${points[i] * 100}%,`;
+      linearGradient += `${rgba ? colors[i].toRGBA() : colors[i].toHex()} ${
+        points[i] * 100
+      }%,`;
     }
 
     linearGradient += `${colors[colors.length - 1].toRGBA()} ${

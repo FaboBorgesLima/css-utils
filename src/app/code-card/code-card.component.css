@@ -1,0 +1,26 @@
+div {
+  border-radius: 1rem;
+  background-color: color-mix(in srgb, var(--blue-5), #0000 75%);
+  & > header {
+    padding: 1rem;
+    background-color: var(--blue-4);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    color: var(--blue-0);
+    display: flex;
+    justify-content: space-between;
+    & ng-icon {
+      color: var(--blue-0);
+      font-size: 1.5rem;
+    }
+  }
+  & > div {
+    padding: 1rem;
+    & > code {
+      font-size: 1rem;
+    }
+    & > h1 {
+      text-align: center;
+    }
+  }
+}

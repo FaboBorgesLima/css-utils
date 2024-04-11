@@ -5,11 +5,18 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { ionColorPalette, ionCopy } from '@ng-icons/ionicons';
 import { Color } from '../color/color';
 import { NgStyle } from '@angular/common';
+import { CodeCardComponent } from '../code-card/code-card.component';
 
 @Component({
   selector: 'app-smooth-linear-gradient',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIconComponent, NgStyle],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgIconComponent,
+    NgStyle,
+    CodeCardComponent,
+  ],
   templateUrl: './smooth-linear-gradient.component.html',
   styleUrl: './smooth-linear-gradient.component.css',
   viewProviders: [provideIcons({ ionColorPalette, ionCopy })],
