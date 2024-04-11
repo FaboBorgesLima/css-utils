@@ -42,6 +42,7 @@ jobs:
       - name: Copy files to gh-pages
         run: |
           cp main/dist/3rdpartylicenses.txt main/dist/browser
+          cp main/dist/browser/index.html main/dist/browser/404.html
           cp main/dist/browser/* gh-pages/
 
       - name: Commit and push from gh-pages
