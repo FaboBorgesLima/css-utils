@@ -58,8 +58,6 @@ export class SmoothLinearGradientPageComponent {
       linear = this.calculator.toSmoothLinearGradient();
 
     this.linearGradient = linear;
-
-    console.log(linear);
     return linear;
   }
 }
