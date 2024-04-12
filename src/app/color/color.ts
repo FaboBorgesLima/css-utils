@@ -36,6 +36,30 @@ export class Color {
     return Math.min(Math.max(Math.trunc(n), 0), 255);
   }
 
+  fromRGBAorRGB(color: string = ''): void {
+    const colors = this.splitRGBAorRGBinColors(color);
+
+    if (colors.length >= 3) {
+      const r = parseInt(colors[0]);
+      const g = parseInt(colors[1]);
+      const b = parseInt(colors[2]);
+      this.setR(r);
+      this.setG(g);
+      this.setB(b);
+    }
+
+    if (colors.length >= 4) {
+      const a = parseFloat(colors[3]) * 255;
+      this.setA(a);
+    }
+  }
+
+  private splitRGBAorRGBinColors(color: string): string[] {
+    const filtered = color.replaceAll(/[^0-9\.\,]/g, '');
+    const parts = filtered.split(',');
+    return parts;
+  }
+
   fromHex(color: string): boolean {
     const clearColor = color
       .toLocaleUpperCase()
@@ -84,11 +108,18 @@ export class Color {
     return this.a;
   }
   toHex(): string {
+    if (this.a == 255)
+      return `#${this.r.toString(16)}${this.g.toString(16)}${this.b.toString(
+        16
+      )}`;
+
     return `${this.r.toString(16)}${this.g.toString(16)}${this.b.toString(
       16
     )}${this.a.toString(16)}`;
   }
-  toRGBA(): string {
+  toRGBAorRGB(): string {
+    if (this.a == 255) return `rgb(${this.r},${this.g},${this.b})`;
+
     return `rgba(${this.r},${this.g},${this.b},${this.a / 255})`;
   }
 }

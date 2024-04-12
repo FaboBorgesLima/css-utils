@@ -17,11 +17,11 @@ import { CodeCardComponent } from '../code-card/code-card.component';
     NgStyle,
     CodeCardComponent,
   ],
-  templateUrl: './smooth-linear-gradient.component.html',
-  styleUrl: './smooth-linear-gradient.component.css',
+  templateUrl: './smooth-linear-gradient-page.component.html',
+  styleUrl: './smooth-linear-gradient-page.component.css',
   viewProviders: [provideIcons({ ionColorPalette, ionCopy })],
 })
-export class SmoothLinearGradientComponent {
+export class SmoothLinearGradientPageComponent {
   public startHex = new FormControl('#FFF');
   public endHex = new FormControl('#000');
   public startColor: Color = new Color(255, 255, 255);

@@ -1,0 +1,29 @@
+<main class="container mx-auto">
+  <div class="grid">
+    <div class="input-group">
+      <label>Hex</label>
+      <div>
+        <input
+          type="text"
+          [formControl]="hex"
+          name="startColor"
+          placeholder="start color"
+          (keyup)="updateRGBA()"
+        />
+      </div>
+    </div>
+    <div class="input-group">
+      <label>RGB</label>
+      <div>
+        <input
+          type="text"
+          [formControl]="rgba"
+          name="startColor"
+          placeholder="start color"
+          (keyup)="updateHex()"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="color-display" [style.background-color]="hex.value"></div>
+</main>
