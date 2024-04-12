@@ -30,7 +30,7 @@ export class SmoothLinearGradientComponent {
   public smoothLinearGradient: boolean = false;
 
   constructor(public calculator: SmoothLinearGradientCalculatorService) {
-    calculator.setSteps(2);
+    calculator.setSteps(13);
     calculator.endColor = this.endColor;
     calculator.startColor = this.startColor;
     this.linearGradient = this.updateLinearGradient();
