@@ -1,4 +1,13 @@
 <main class="container mx-auto">
+  <div class="color-display bg-black-white">
+    <div [style.background]="startHex"></div>
+    <div
+      [ngStyle]="{
+        background: calculateLinearGrandient(startHex, endHex)
+      }"
+    ></div>
+    <div [style.background]="endHex"></div>
+  </div>
   <div class="checkbox-group">
     <input
       type="checkbox"
@@ -11,54 +20,9 @@
   </div>
 
   <div class="grid">
-    <div class="input-group">
-      <label>Start Color</label>
-      <div>
-        <input
-          type="text"
-          [formControl]="startHex"
-          (keyup)="
-            startHex.setValue(sanitizeHexColor(startHex.value));
-            startColor.fromHex(startHex.value ? startHex.value : '');
-            updateLinearGradient()
-          "
-          name="startColor"
-          placeholder="start color"
-        />
-        <button (click)="copyToClipBoard(startHex.value)" title="copy">
-          <ng-icon name="ionColorPalette"></ng-icon>
-        </button>
-      </div>
-    </div>
+    <app-color-selector [(hex)]="startHex" header="start"></app-color-selector>
+    <app-color-selector [(hex)]="endHex" header="end"></app-color-selector>
+  </div>
 
-    <div class="input-group">
-      <label>End Color</label>
-      <div>
-        <input
-          type="text"
-          [formControl]="endHex"
-          (keyup)="
-            endHex.setValue(sanitizeHexColor(endHex.value));
-            endColor.fromHex(endHex.value ? endHex.value : '');
-            updateLinearGradient()
-          "
-          name="endColor"
-          placeholder="end color"
-        />
-        <button (click)="copyToClipBoard(endHex.value)" title="copy">
-          <ng-icon name="ionColorPalette"></ng-icon>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="color-display bg-black-white">
-    <div [style.background]="startHex.value"></div>
-    <div
-      [ngStyle]="{
-        background: linearGradient
-      }"
-    ></div>
-    <div [style.background]="endHex.value"></div>
-  </div>
   <app-code-card [code]="linearGradient" header="css code"></app-code-card>
 </main>

@@ -13,22 +13,5 @@ import { ColorSelectorComponent } from '../color-selector/color-selector.compone
 export class HexToRgbaPageComponent {
   public color: Color = new Color(255, 255, 255);
 
-  public hex = new FormControl(this.color.toHex());
-
-  public hexA = '#fff';
-
-  public rgba = new FormControl(this.color.toRGBAorRGB());
-
-  updateRGBA(): string {
-    this.color.fromHex(this.hex.value ? this.hex.value : '');
-    this.rgba.setValue(this.color.toRGBAorRGB());
-
-    return this.color.toRGBAorRGB();
-  }
-  updateHex(): string {
-    this.color.fromRGBAorRGB(this.rgba.value ? this.rgba.value : '');
-    this.hex.setValue(this.color.toHex());
-
-    return this.color.toHex();
-  }
+  public hex = '#fff';
 }

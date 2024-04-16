@@ -1,30 +1,3 @@
 <main class="container mx-auto">
-  <app-color-selector [(hex)]="hexA"></app-color-selector>
-  <div class="grid">
-    <div class="input-group">
-      <label>Hex</label>
-      <div>
-        <input
-          type="text"
-          [formControl]="hex"
-          name="startColor"
-          placeholder="start color"
-          (keyup)="updateRGBA()"
-        />
-      </div>
-    </div>
-    <div class="input-group">
-      <label>RGB</label>
-      <div>
-        <input
-          type="text"
-          [formControl]="rgba"
-          name="startColor"
-          placeholder="start color"
-          (keyup)="updateHex()"
-        />
-      </div>
-    </div>
-  </div>
-  <div class="color-display" [style.background-color]="hex.value"></div>
+  <app-color-selector [(hex)]="hex" header="Color"></app-color-selector>
 </main>

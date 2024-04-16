@@ -15,6 +15,7 @@ import { ionCopy } from '@ng-icons/ionicons';
 export class ColorSelectorComponent {
   @Input({ required: true }) hex!: string;
   @Output() hexChange = new EventEmitter<string>();
+  @Input({ required: true }) header!: string;
   hexInput = new FormControl(this.hex);
   rgbInput = new FormControl('');
   color: Color = new Color(0, 0, 0);
