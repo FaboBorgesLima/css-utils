@@ -1,0 +1,47 @@
+<input
+  [formControl]="rgbSelector"
+  (input)="updateHexRGB()"
+  class="aspect-8/1 color-range"
+  type="range"
+  min="0"
+  [max]="RGB_SELECTOR_RANGE"
+  step="1"
+/>
+<div
+  class="aspect-8/1 w-full"
+  [style.background]="
+    'linear-gradient(90deg, #000 0%, ' + hexRGB + ' 50%, #fff 100%)'
+  "
+>
+  <input
+    [formControl]="darkenSelector"
+    (input)="updateHexDarken()"
+    class="aspect-8/1 w-full block"
+    type="range"
+    min="0"
+    [max]="DARKEN_SELECTOR_RANGE"
+    [step]="DARKEN_SELECTOR_RANGE / 255"
+  />
+</div>
+<div class="bg-black-white">
+  <div
+    class="aspect-8/1 w-full"
+    [style.background]="
+      'linear-gradient(270deg,' + hexDarken + ' 0%, #0000 100%)'
+    "
+  >
+    <input
+      [formControl]="opacitySelector"
+      (input)="updateHexOpacity()"
+      class="aspect-8/1 w-full block"
+      type="range"
+      min="0"
+      [max]="OPACITY_SELECTOR_RANGE"
+      step="1"
+    />
+  </div>
+</div>
+
+<div class="bg-black-white">
+  <div class="aspect-8/1 w-full" [style.backgroundColor]="hex"></div>
+</div>

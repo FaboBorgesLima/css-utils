@@ -175,3 +175,7 @@ body {
     }
   }
 }
+.bg-black-white {
+  background-image: url("./assets/black_white.png");
+  background-repeat: repeat;
+}

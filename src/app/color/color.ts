@@ -109,13 +109,23 @@ export class Color {
   }
   toHex(): string {
     if (this.a == 255)
-      return `#${this.r.toString(16)}${this.g.toString(16)}${this.b.toString(
-        16
-      )}`;
+      return `#${this.toHexTwoDigits(this.r)}${this.toHexTwoDigits(
+        this.g
+      )}${this.toHexTwoDigits(this.b)}`;
 
-    return `${this.r.toString(16)}${this.g.toString(16)}${this.b.toString(
-      16
-    )}${this.a.toString(16)}`;
+    return `#${this.toHexTwoDigits(this.r)}${this.toHexTwoDigits(
+      this.g
+    )}${this.toHexTwoDigits(this.b)}${this.toHexTwoDigits(this.a)}`;
+  }
+
+  private toHexTwoDigits(n: number): string {
+    const hex = n.toString(16);
+
+    if (hex.length == 1) return '0' + hex;
+
+    if (hex.length == 2) return hex;
+
+    return '00';
   }
   toRGBAorRGB(): string {
     if (this.a == 255) return `rgb(${this.r},${this.g},${this.b})`;
