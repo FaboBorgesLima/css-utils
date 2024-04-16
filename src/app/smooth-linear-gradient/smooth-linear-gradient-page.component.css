@@ -61,7 +61,7 @@
     background-color: var(--blue-6);
   }
 }
-.checkboc-group {
+.checkbox-group {
   display: flex;
   flex-direction: row;
   gap: 1rem;

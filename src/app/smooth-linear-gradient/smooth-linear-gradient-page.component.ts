@@ -6,6 +6,7 @@ import { ionColorPalette, ionCopy } from '@ng-icons/ionicons';
 import { Color } from '../color/color';
 import { NgStyle } from '@angular/common';
 import { CodeCardComponent } from '../code-card/code-card.component';
+import { ColorSelectorComponent } from '../color-selector/color-selector.component';
 
 @Component({
   selector: 'app-smooth-linear-gradient',
@@ -16,14 +17,15 @@ import { CodeCardComponent } from '../code-card/code-card.component';
     NgIconComponent,
     NgStyle,
     CodeCardComponent,
+    ColorSelectorComponent,
   ],
-  templateUrl: './smooth-linear-gradient.component.html',
-  styleUrl: './smooth-linear-gradient.component.css',
+  templateUrl: './smooth-linear-gradient-page.component.html',
+  styleUrl: './smooth-linear-gradient-page.component.css',
   viewProviders: [provideIcons({ ionColorPalette, ionCopy })],
 })
-export class SmoothLinearGradientComponent {
-  public startHex = new FormControl('#FFF');
-  public endHex = new FormControl('#000');
+export class SmoothLinearGradientPageComponent {
+  public startHex = '#fff';
+  public endHex = '#000';
   public startColor: Color = new Color(255, 255, 255);
   public endColor: Color = new Color(0, 0, 0);
   public linearGradient: string = '';
@@ -51,6 +53,15 @@ export class SmoothLinearGradientComponent {
     return '#' + str.toLocaleUpperCase().replaceAll(/[^ABCDEF0-9]/g, '');
   }
 
+  public calculateLinearGrandient(startHex: string, endHex: string): string {
+    this.calculator.startColor.fromHex(startHex);
+    this.calculator.endColor.fromHex(endHex);
+
+    if (this.smoothLinearGradient)
+      return this.calculator.toSmoothLinearGradient();
+    return this.calculator.toLinearGradient();
+  }
+
   public updateLinearGradient(): string {
     let linear = this.calculator.toLinearGradient();
 
@@ -58,8 +69,6 @@ export class SmoothLinearGradientComponent {
       linear = this.calculator.toSmoothLinearGradient();
 
     this.linearGradient = linear;
-
-    console.log(linear);
     return linear;
   }
 }

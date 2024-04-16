@@ -1,0 +1,119 @@
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  width: 100%;
+  background: url("../../assets/black_white.png");
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+input[type="range"]::-moz-range-thumb,
+input[type="range"]::-webkit-slider-thumb {
+  background-color: #0000;
+  border: 2px solid #fff;
+  outline: 2px solid #000;
+  border-radius: 0px;
+  margin: none;
+  height: 4rem;
+}
+
+input[type="range"]::-moz-range-track,
+input[type="range"]::-webkit-slider-runnable-track {
+  margin: none;
+  height: 4rem;
+}
+
+.h-4 {
+  height: 4rem;
+}
+.w-full {
+  width: 100%;
+}
+.bg-black-to-red[type="range"] {
+  background: linear-gradient(270deg, #f00 0%, #000 100%);
+}
+.bg-black-to-green[type="range"] {
+  background: linear-gradient(270deg, #0f0 0%, #000 100%);
+}
+.bg-black-to-blue[type="range"] {
+  background: linear-gradient(270deg, #00f 0%, #000 100%);
+}
+.col {
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+.relative {
+  position: relative;
+}
+.top-0 {
+  top: 0;
+}
+.left-0 {
+  left: 0;
+}
+.absolute {
+  position: absolute;
+}
+div.box {
+  background-color: var(--blue-1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.color-preview {
+  background: url("../../assets/black_white.png");
+  width: 100%;
+  height: 5rem;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0.5rem;
+  & div {
+    height: 100%;
+    width: 100%;
+    border-radius: 0.5rem;
+  }
+}
+h4 {
+  text-align: center;
+  margin-bottom: 0;
+  font-size: 1.25rem;
+}
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .color-preview {
+    width: 10rem;
+    height: 10rem;
+  }
+}
+button {
+  color: var(--blue-6);
+  font-size: 1.5rem;
+  transition: 100ms;
+  filter: drop-shadow(2px 2px 4px #000);
+  &:active {
+    color: var(--blue-5);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  div.box {
+    background-color: var(--blue-6);
+  }
+  button {
+    color: var(--blue-1);
+  }
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}

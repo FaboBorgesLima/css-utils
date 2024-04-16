@@ -1,0 +1,28 @@
+<main class="container mx-auto">
+  <div class="color-display bg-black-white">
+    <div [style.background]="startHex"></div>
+    <div
+      [ngStyle]="{
+        background: calculateLinearGrandient(startHex, endHex)
+      }"
+    ></div>
+    <div [style.background]="endHex"></div>
+  </div>
+  <div class="checkbox-group">
+    <input
+      type="checkbox"
+      [checked]="smoothLinearGradient"
+      (change)="
+        smoothLinearGradient = !smoothLinearGradient; updateLinearGradient()
+      "
+    />
+    <span>smooth linear gradient</span>
+  </div>
+
+  <div class="grid">
+    <app-color-selector [(hex)]="startHex" header="start"></app-color-selector>
+    <app-color-selector [(hex)]="endHex" header="end"></app-color-selector>
+  </div>
+
+  <app-code-card [code]="linearGradient" header="css code"></app-code-card>
+</main>

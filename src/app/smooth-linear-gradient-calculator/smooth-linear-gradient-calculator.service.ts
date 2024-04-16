@@ -88,7 +88,7 @@ export class SmoothLinearGradientCalculatorService {
     if (rgba)
       return `linear-gradient(${
         this.deg
-      }deg, ${this.startColor.toRGBA()} 0%, ${this.endColor.toRGBA()} 100%)`;
+      }deg, ${this.startColor.toRGBAorRGB()} 0%, ${this.endColor.toRGBAorRGB()} 100%)`;
 
     return `linear-gradient(${
       this.deg
@@ -102,12 +102,12 @@ export class SmoothLinearGradientCalculatorService {
     let linearGradient = `linear-gradient(${this.deg}deg, `;
 
     for (let i = 0; i < colors.length - 1; i++) {
-      linearGradient += `${rgba ? colors[i].toRGBA() : colors[i].toHex()} ${
-        points[i] * 100
-      }%,`;
+      linearGradient += `${
+        rgba ? colors[i].toRGBAorRGB() : colors[i].toHex()
+      } ${points[i] * 100}%,`;
     }
 
-    linearGradient += `${colors[colors.length - 1].toRGBA()} ${
+    linearGradient += `${colors[colors.length - 1].toRGBAorRGB()} ${
       points[colors.length - 1] * 100
     }% )`;
 
