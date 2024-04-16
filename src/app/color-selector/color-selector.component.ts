@@ -1,128 +1,96 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Color } from '../color/color';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { ionCopy } from '@ng-icons/ionicons';
 
 @Component({
   selector: 'app-color-selector',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, NgIcon],
   templateUrl: './color-selector.component.html',
   styleUrl: './color-selector.component.css',
+  viewProviders: [provideIcons({ ionCopy })],
 })
 export class ColorSelectorComponent {
-  readonly RGB_SELECTOR_RANGE = 255 * 5;
-  readonly DARKEN_SELECTOR_RANGE = 255 * 2;
-  readonly OPACITY_SELECTOR_RANGE = 255;
-  rgbSelector = new FormControl(this.RGB_SELECTOR_RANGE / 2);
-  darkenSelector = new FormControl(this.DARKEN_SELECTOR_RANGE / 2);
-  opacitySelector = new FormControl(this.OPACITY_SELECTOR_RANGE);
+  @Input({ required: true }) hex!: string;
+  @Output() hexChange = new EventEmitter<string>();
+  hexInput = new FormControl(this.hex);
+  rgbInput = new FormControl('');
+  color: Color = new Color(0, 0, 0);
 
-  hexRGB = this.selectorRangeToColor(
-    this.rgbSelector.value ? this.rgbSelector.value : 0
-  ).toHex();
-  hexDarken = this.selectorRangeToColor(
-    this.rgbSelector.value ? this.rgbSelector.value : 0
-  ).toHex();
-  hex = this.hexDarken;
+  r = new FormControl(0);
+  g = new FormControl(0);
+  b = new FormControl(0);
+  a = new FormControl(0);
 
-  selectorRangeToColor(range: number): Color {
-    if (range < 0 || range > this.RGB_SELECTOR_RANGE) return new Color(0, 0, 0);
-
-    let r = 0;
-    let g = 0;
-    let b = 0;
-
-    let rangeRemainder = range % 255;
-    if (rangeRemainder == 0) rangeRemainder;
-
-    if (range < 255) {
-      g = rangeRemainder;
-      r = 255;
-    } else if (range >= 255 && range < 255 * 2) {
-      r = 255 - rangeRemainder;
-      g = 255;
-    } else if (range >= 255 * 2 && range < 255 * 3) {
-      g = 255;
-      b = rangeRemainder;
-    } else if (range >= 255 * 3 && range < 255 * 4) {
-      b = 255;
-      g = 255 - rangeRemainder;
-    } else {
-      b = 255;
-      r = rangeRemainder;
-      if (rangeRemainder == 0) r = 255;
-    }
-
-    return new Color(r, g, b);
+  public copyToClipBoard(str: string | null = ''): void {
+    navigator.clipboard.writeText(str ? str : '');
   }
 
-  updateHexRGB(): void {
-    const color = this.selectorRangeToColor(
-      this.rgbSelector.value ? this.rgbSelector.value : 0
+  ngOnInit() {
+    this.color.fromHex(this.hex);
+    this.r.setValue(this.color.getR());
+    this.g.setValue(this.color.getG());
+    this.b.setValue(this.color.getB());
+    this.a.setValue(this.color.getA());
+    this.hexInput.setValue(this.color.toHex());
+    this.rgbInput.setValue(this.color.toRGBAorRGB());
+  }
+
+  updateHex(): void {
+    const r = this.r.value ? this.r.value : 0;
+    const g = this.g.value ? this.g.value : 0;
+    const b = this.b.value ? this.b.value : 0;
+    const a = this.a.value ? this.a.value : 0;
+
+    this.color.setR(r);
+    this.color.setG(g);
+    this.color.setB(b);
+    this.color.setA(a);
+
+    const newHex = this.color.toHex();
+
+    this.hexChange.emit(newHex);
+    this.hexInput.setValue(newHex);
+    this.rgbInput.setValue(this.color.toRGBAorRGB());
+  }
+
+  updateHexOnInputHex(): void {
+    this.color.fromHex(this.hexInput.value ? this.hexInput.value : '');
+
+    this.r.setValue(this.color.getR());
+    this.g.setValue(this.color.getG());
+    this.b.setValue(this.color.getB());
+    this.a.setValue(this.color.getA());
+    this.rgbInput.setValue(this.color.toRGBAorRGB());
+
+    const newHex = this.color.toHex();
+
+    this.hexChange.emit(newHex);
+  }
+
+  updateHexOnInputRGBA(): void {
+    this.color.fromRGBAorRGB(this.rgbInput.value ? this.rgbInput.value : '');
+
+    this.r.setValue(this.color.getR());
+    this.g.setValue(this.color.getG());
+    this.b.setValue(this.color.getB());
+    this.a.setValue(this.color.getA());
+    this.hexInput.setValue(this.color.toHex());
+
+    const newHex = this.color.toHex();
+
+    this.hexChange.emit(newHex);
+  }
+
+  getHexWithoutTransparency(): string {
+    const colorWithoutTransparency = new Color(
+      this.color.getR(),
+      this.color.getG(),
+      this.color.getB()
     );
 
-    this.hexRGB = color.toHex();
-
-    this.updateHexDarken();
-  }
-
-  updateHexDarken(): void {
-    const color = new Color(0, 0, 0);
-
-    color.fromHex(this.hexRGB);
-
-    this.darkenFromSelector(
-      color,
-      this.darkenSelector.value ? this.darkenSelector.value : 0
-    );
-
-    this.hexDarken = color.toHex();
-
-    this.updateHexOpacity();
-  }
-
-  updateHexOpacity(): void {
-    const color = new Color(0, 0, 0);
-
-    color.fromHex(this.hexDarken);
-
-    this.opacityFromSelector(
-      color,
-      this.opacitySelector.value ? this.opacitySelector.value : 0
-    );
-
-    this.hex = color.toHex();
-  }
-
-  darkenFromSelector(color: Color, range: number): Color {
-    if (range < 255) {
-      const stepR = color.getR() / 255;
-      const stepG = color.getG() / 255;
-      const stepB = color.getB() / 255;
-
-      color.setR(color.getR() - (color.getR() - range * stepR));
-      color.setG(color.getG() - (color.getG() - range * stepG));
-      color.setB(color.getB() - (color.getB() - range * stepB));
-      return color;
-    }
-
-    if (range > 255) {
-      const stepR = (255 - color.getR()) / 255;
-      const stepG = (255 - color.getG()) / 255;
-      const stepB = (255 - color.getB()) / 255;
-
-      color.setR(color.getR() + (range - 255) * stepR);
-      color.setG(color.getG() + (range - 255) * stepG);
-      color.setB(color.getB() + (range - 255) * stepB);
-      return color;
-    }
-
-    return color;
-  }
-
-  opacityFromSelector(color: Color, range: number): Color {
-    color.setA(range);
-
-    return color;
+    return colorWithoutTransparency.toHex();
   }
 }

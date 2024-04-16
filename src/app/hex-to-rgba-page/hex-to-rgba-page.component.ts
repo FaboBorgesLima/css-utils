@@ -15,6 +15,8 @@ export class HexToRgbaPageComponent {
 
   public hex = new FormControl(this.color.toHex());
 
+  public hexA = '#fff';
+
   public rgba = new FormControl(this.color.toRGBAorRGB());
 
   updateRGBA(): string {
