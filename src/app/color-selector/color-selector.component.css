@@ -9,18 +9,30 @@ input[type="range"] {
   padding: 0;
 }
 
-input[type="range"]::-moz-range-thumb,
-input[type="range"]::-webkit-slider-thumb {
-  background-color: #0000;
-  border: 2px solid #fff;
-  outline: 2px solid #000;
-  border-radius: 0px;
+input[type="range"]::-moz-range-track,
+input[type="range"]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
   margin: none;
   height: 4rem;
 }
 
-input[type="range"]::-moz-range-track,
-input[type="range"]::-webkit-slider-runnable-track {
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #0000;
+  border: 2px solid #fff;
+  outline: 2px solid #000;
+  border-radius: 0px;
+  width: 1rem;
+  margin: none;
+  height: 4rem;
+}
+
+input[type="range"]::-moz-range-thumb {
+  background-color: #0000;
+  border: 2px solid #fff;
+  outline: 2px solid #000;
+  border-radius: 0px;
+  width: 1rem;
   margin: none;
   height: 4rem;
 }
