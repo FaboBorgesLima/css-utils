@@ -1,79 +1,89 @@
-<div class="grid box">
-  <div class="col">
-    <span>Red</span>
-    <input
-      type="range"
-      class="h-4 w-full bg-black-to-red"
-      min="0"
-      max="255"
-      step="1"
-      [formControl]="r"
-      (input)="updateHex()"
-    />
-    <span>Green</span>
-    <input
-      type="range"
-      class="h-4 w-full bg-black-to-green"
-      min="0"
-      max="255"
-      step="1"
-      [formControl]="g"
-      (input)="updateHex()"
-    />
-    <span>Blue</span>
-    <input
-      type="range"
-      class="h-4 w-full bg-black-to-blue"
-      min="0"
-      max="255"
-      step="1"
-      [formControl]="b"
-      (input)="updateHex()"
-    />
-    <span>Transparency</span>
-    <div class="w-full h-4 relative bg-black-white">
+<div class="box">
+  <button
+    class="button-header p-4"
+    [style.background]="hex"
+    (click)="open = !open"
+  >
+    {{ header }} <ng-icon *ngIf="!open" name="ionCaretDown"></ng-icon
+    ><ng-icon *ngIf="open" name="ionCaretUp"></ng-icon>
+  </button>
+
+  <div *ngIf="open" class="grid p-4 color-selector-body">
+    <div class="col">
+      <span>Red</span>
       <input
         type="range"
-        class="h-4 w-full top-0 left-0 absolute"
+        class="h-4 w-full bg-black-to-red"
         min="0"
         max="255"
         step="1"
-        [style.background]="
-          'linear-gradient(90deg,#0000 0%,' +
-          getHexWithoutTransparency() +
-          ' 100% )'
-        "
-        [formControl]="a"
+        [formControl]="r"
         (input)="updateHex()"
       />
-    </div>
-  </div>
-  <div class="col">
-    <h4>{{ header }}</h4>
-    <div class="color-preview">
-      <div [style.background]="hex"></div>
-    </div>
-    <span>Hex</span>
-    <div class="row">
+      <span>Green</span>
       <input
-        (input)="updateHexOnInputHex()"
-        [formControl]="hexInput"
-        class="common-input"
+        type="range"
+        class="h-4 w-full bg-black-to-green"
+        min="0"
+        max="255"
+        step="1"
+        [formControl]="g"
+        (input)="updateHex()"
       />
-      <button title="copy" (click)="copyToClipBoard(hexInput.value)">
-        <ng-icon name="ionCopy"></ng-icon>
-      </button>
-    </div>
-    <span>RGB</span>
-    <div class="row">
+      <span>Blue</span>
       <input
-        (input)="updateHexOnInputRGBA()"
-        [formControl]="rgbInput"
-        class="common-input"
+        type="range"
+        class="h-4 w-full bg-black-to-blue"
+        min="0"
+        max="255"
+        step="1"
+        [formControl]="b"
+        (input)="updateHex()"
       />
-      <button title="copy" (click)="copyToClipBoard(rgbInput.value)">
-        <ng-icon name="ionCopy"></ng-icon>
-      </button>
+      <span>Transparency</span>
+      <div class="w-full h-4 relative bg-black-white">
+        <input
+          type="range"
+          class="h-4 w-full top-0 left-0 absolute"
+          min="0"
+          max="255"
+          step="1"
+          [style.background]="
+            'linear-gradient(90deg,#0000 0%,' +
+            getHexWithoutTransparency() +
+            ' 100% )'
+          "
+          [formControl]="a"
+          (input)="updateHex()"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="color-preview">
+        <div [style.background]="hex"></div>
+      </div>
+      <span>Hex</span>
+      <div class="row">
+        <input
+          (input)="updateHexOnInputHex()"
+          [formControl]="hexInput"
+          class="common-input"
+        />
+        <button title="copy" (click)="copyToClipBoard(hexInput.value)">
+          <ng-icon name="ionCopy"></ng-icon>
+        </button>
+      </div>
+      <span>RGB</span>
+      <div class="row">
+        <input
+          (input)="updateHexOnInputRGBA()"
+          [formControl]="rgbInput"
+          class="common-input"
+        />
+        <button title="copy" (click)="copyToClipBoard(rgbInput.value)">
+          <ng-icon name="ionCopy"></ng-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>

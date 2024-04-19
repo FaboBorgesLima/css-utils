@@ -2,15 +2,21 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Color } from '../color/color';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { ionCopy } from '@ng-icons/ionicons';
+import {
+  ionArrowDown,
+  ionCaretDown,
+  ionCaretUp,
+  ionCopy,
+} from '@ng-icons/ionicons';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-color-selector',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIcon],
+  imports: [FormsModule, ReactiveFormsModule, NgIcon, NgIf],
   templateUrl: './color-selector.component.html',
   styleUrl: './color-selector.component.css',
-  viewProviders: [provideIcons({ ionCopy })],
+  viewProviders: [provideIcons({ ionCopy, ionCaretDown, ionCaretUp })],
 })
 export class ColorSelectorComponent {
   @Input({ required: true }) hex!: string;
@@ -19,6 +25,7 @@ export class ColorSelectorComponent {
   hexInput = new FormControl(this.hex);
   rgbInput = new FormControl('');
   color: Color = new Color(0, 0, 0);
+  @Input({}) open: boolean = false;
 
   r = new FormControl(0);
   g = new FormControl(0);
