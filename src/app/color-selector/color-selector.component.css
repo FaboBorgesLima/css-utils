@@ -75,10 +75,13 @@ input[type="range"]::-moz-range-thumb {
 .absolute {
   position: absolute;
 }
+.p-4 {
+  padding: 1rem;
+}
 div.box {
   background-color: var(--blue-1);
-  padding: 1rem;
   border-radius: 0.5rem;
+  overflow: hidden;
 }
 .color-preview {
   background: url("../../assets/black_white.png");
@@ -107,7 +110,7 @@ h4 {
     height: 10rem;
   }
 }
-button {
+.color-selector-body button {
   color: var(--blue-6);
   font-size: 1.5rem;
   transition: 100ms;
@@ -120,7 +123,7 @@ button {
   div.box {
     background-color: var(--blue-6);
   }
-  button {
+  .color-selector-body button {
     color: var(--blue-1);
   }
 }
@@ -128,4 +131,18 @@ button {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+}
+.button-header {
+  width: 100%;
+  font-size: 1.5rem;
+  color: #fff;
+  text-shadow: 1px 1px 4px #000;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  & ng-icon {
+    filter: drop-shadow(2px 2px 4px #000);
+    margin-top: auto;
+    margin-bottom: auto;
+  }
 }
